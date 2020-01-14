@@ -3,6 +3,7 @@
 Allows you to dice up whatever element you have into a grid and then put the items at any positions along the grid.
 
 Magic: `.item{$}*10` -> spits out a div with a class item with one through ten inside of it.
+More magic: `.item.item${$}*10` will give us 10 divs with class `item itemY`. Really useful
 
 The grid template columns and rows are collectively named `Tracks`
 
@@ -122,3 +123,30 @@ And we can also tell it how big it should be.
 Note that negative numbers can also be used to refer to track items. This will only work for explicitly defined grid
 rows and columns and not those which were implicit.
 
+# 12 Auto-fit and Auto-fill
+
+`auto-fill` - figure out how much content I have and how much space is available and fill the items as required.
+`auto-fit` - very similar to the above except it makes the track smaller. This allows you to move elements around as required. 
+
+The example showed used it as follows: 
+
+```
+.container {
+	grid-template-columns: repeat(auto-fit, 150px);
+} 
+```
+
+The above creates a grid of however many items and fits the elements, each which is 150px, into the grid.
+
+# 13 Using minmax()
+
+Use as follows:
+```
+.container {
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+} 
+```
+
+Minmax specifies the minimum width and maximum width of some element. Particularly useful when combined with `auto-fit`.
+
+Similarly there exists a command called `fit-content(100px)` which makes the element the maximum size specified. 
