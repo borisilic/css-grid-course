@@ -138,7 +138,7 @@ The example showed used it as follows:
 
 The above creates a grid of however many items and fits the elements, each which is 150px, into the grid.
 
-# 13 Using minmax()
+# 13 - Using minmax()
 
 Use as follows:
 ```
@@ -150,3 +150,138 @@ Use as follows:
 Minmax specifies the minimum width and maximum width of some element. Particularly useful when combined with `auto-fit`.
 
 Similarly there exists a command called `fit-content(100px)` which makes the element the maximum size specified. 
+
+# 14 - Grid Template Areas
+
+It is possible to define grids areas.
+
+```
+.container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-template-rows: 150px 150px 100px;
+  grid-template-areas:
+    "sidebar-1  content   sidebar-2"
+    "sidebar-1  content   sidebar-2"
+    "footer     footer    footer"
+}
+```
+
+Then you can specify where items live as follows
+
+```
+.item1 {
+  grid-area: sidebar-1;
+}
+```
+
+The benefit of doing this is that layouts can easily be changed by using media queries
+
+```
+@media(max-width: 700px) {
+  .container {
+    grid-template-areas: 
+      "content content content"
+      "sidebar-1 sidebar-1 sidebar-2"
+      "footer footer footer"
+  } 
+} 
+
+```
+
+
+Now the layout will change as soon as the width is reduced below 700px.
+
+
+Another cool thing that can be done is specifying where columns start and end based on the area names. 
+
+For example the following is valid. 
+
+```
+.item3 {
+  grid-column: sidebar-1-start / sidebar-1-end;
+} 
+```
+
+So this can be used instead of line numbers.
+
+# 15 - Naming Lines in CSS Grid
+
+It is possible to name the tracks rather than using line numbers. This can be done as follows
+
+
+```
+.container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: [sidebar-start site-left] 1fr [sidebar-end content-start] 500px [content-end] 1fr [site-right];
+  grid-template-rows: [content-top] repeat(10, auto) [content-bottom];
+}
+
+.item3 {
+  background: slateblue;
+  grid-column: content-start;
+  grid-row: content-top / content-bottom;
+  /* grid-row: 1 / span 10; */
+}
+```
+
+
+Now rather than specifying track one or track two we can use `sidebar-start` or `site-left` to specify the start of our track.
+
+# 16 - Grid Auto Flow dense block fitting
+
+When specifying the length and width of elements it is often the case that the natural grid filling won't be as expected. 
+Essentially there will be certain spots where the grid will not put any element in because it just doesn't fit. 
+
+To make grid fill in these positions with elements that are further along we can do the following 
+
+
+```
+.container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-flow: dense;
+}
+```
+
+
+The property we are interested in is `grid-auto-flow: dense;`. This fills in the grid empty spaces with any elements that it can find. 
+
+# 17 - Grid Alignment + Centering
+
+Six properties align items within a grid:
+
+<hr>
+
+`justify-items`
+ 
+`align-items`
+
+These two align the content within the element itself.
+
+<hr>
+
+`justify-content`
+
+`align-content`
+
+These two align all the elements within the grid to fit the grid as required. 
+
+<hr>
+ 
+`justify-self`
+
+`align-self`
+
+These overwrite on a case by case basis for any element.
+
+<hr>
+
+The `justify-*` set of properties works along the x-axis or row axis. (So it will move elements left or right) 
+
+The `align-*` set of properties works along the y-axis or column axis. (So it will move elements up or down) 
+
+

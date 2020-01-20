@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../assets/style.css">
-  <title>Naming Lines in CSS Grid!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style.css">
+    <title>Naming Lines in CSS Grid!</title>
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
     <div class="item item1">1</div>
     <div class="item item2">2</div>
     <div class="item item3">3</div>
@@ -40,16 +40,22 @@
     <div class="item item28">28</div>
     <div class="item item29">29</div>
     <div class="item item30">30</div>
-  </div>
+</div>
 
-  <style>
+<style>
     .container {
-      display: grid;
-      grid-gap: 20px;
-      grid-template-columns: 1fr 500px 1fr;
-      grid-template-rows: repeat(10, auto);
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: [side-start column-one] 1fr [side-end] 500px [column-three] 1fr;
+        grid-template-rows: [content-start] repeat(10, auto) [content-end]
     }
-  </style>
+
+    .item3 {
+        grid-column: side-start / column-three;
+        grid-row: content-start / content-end;
+    }
+
+</style>
 </body>
 
 </html>
