@@ -284,4 +284,50 @@ The `justify-*` set of properties works along the x-axis or row axis. (So it wil
 
 The `align-*` set of properties works along the y-axis or column axis. (So it will move elements up or down) 
 
+# 18 - Reordering Grid Items
 
+It is possible to reorder grid items with the `order: <number>;` property. 
+
+It has a few issues when it comes to selecting elements. 
+
+# 19 - Nesting Grid with Album Layouts
+
+The way that things should naturally work is the way that they actually work.
+
+Some notes: 
+
+```
+.albums {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 10px;
+}
+```
+
+`minmax` should be combined with fractional units rather than other units. 
+Otherwise the other units will dominate and you will always get the maximum width instead of one which varies nicely.
+
+There's a little trick to making images fit properly. Have a look at the following css
+
+
+```
+    .album {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        align-items: center;
+        color: white;
+        font-weight: 100;
+    }
+
+    .album__details {
+        display: grid;
+        align-items: center;
+    }
+
+    /* This forces the image to fit into its container rather than overflowing its size*/
+    .album__artwork {
+        width: 100%;
+    }
+```
+
+The gtr defines the image to be 150px yet the image from our url is 300px. Without the `width: 100%;` specification the image will actually overflow its container leading to bad visuals. As such this is an important property to shrink the image. 
